@@ -37,28 +37,7 @@ if ((s2[0] != 0 or s2[1] != 0) or sw == False):
   print("Lo sentimos, la sucesión ingresada no pertenece a un grafo :(")
 else:
   # Creates a empty graph
-  G = nx.Graph()
-  
-  # We add all the nodes (with no connections)
-  for i in range(len(s)):
-    G.add_node(i) 
-
-  # as long as there are nodes with degree greater than 0
-  while (sum(s) > 0): 
-    # add edges to all the nodes whose degree > 0
-    for i in range(len(s)): # loops the nodes
-      for k in range(len(s)): # loops the nodes looking for the other node to be connected
-        # we are trying to connect (i, k) where i != k and degree(k) > 0 and degree(i) > 0
-        if (k != i and s[k] > 0 and s[i] > 0):
-          # if (i, k) or (k, i) already exists, then we continue looking for another k-node
-          if ((i, k) in list(G.edges) or (k, i) in list(G.edges)):
-            continue
-          # we connect the i-node with the k-node
-          G.add_edge(i, k)
-          # we substract 1 both from degrees(k) and degrees(i)
-          s[i] -= 1
-          s[k] -= 1
-          break
+  G = nx.havel_hakimi_graph(s)
           
   #Code for printing the graph
   #literalmente lo copié y pegué de la documentación, no me pregunten por esto XD
